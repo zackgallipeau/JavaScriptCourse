@@ -188,16 +188,6 @@ for (let repetition = 1; repetition <= 10; repetition++) {
     console.log(`repetiton ${repetition}`)
 }
 
-*/
-
-const zack = [
-    "Zack",
-    "Gallipeau",
-    2001,
-    "Unemployed LOSER",
-    ["Jerry", "Gerry", "Jerreigh"]
-]
-
 const types = [];
 
 for (let i = 0; i < zack.length; i++) {
@@ -216,3 +206,29 @@ for (let i = 0; i < years.length; i++) {
     ages.push(2023 - years[i]);
 }
 console.log(ages);
+
+const zack = [
+    "Zack",
+    "Gallipeau",
+    2001,
+    "Unemployed LOSER",
+    ["Jerry", "Gerry", "Jerreigh"]
+];
+
+const zackNew = [];
+
+for (let i = zack.length - 1; i >= 0; i--) {
+    zackNew.push(zack[i]);
+}
+
+console.log(zackNew);
+
+for (let exercise = 1; exercise <= 3; exercise++) {
+    console.log(`------- Starting exercise ${exercise}`);
+
+    for (let rep = 1; rep < 11; rep++) {
+        console.log(`Lifting weight exercise ${exercise}, repetition ${rep}`);
+    }
+}
+*/
+
