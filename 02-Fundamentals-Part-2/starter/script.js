@@ -156,7 +156,7 @@ if (myObject[objectValue]) {
 }
 
 console.log(`${myObject.firstName} has ${myObject.friendsList.length} friends, and his best friend is named ${myObject.friendsList[0]}`);
-*/
+
 
 const zack = {
     firstName: "Zack",
@@ -187,3 +187,32 @@ console.log(zack.getSummary());
 for (let repetition = 1; repetition <= 10; repetition++) {
     console.log(`repetiton ${repetition}`)
 }
+
+*/
+
+const zack = [
+    "Zack",
+    "Gallipeau",
+    2001,
+    "Unemployed LOSER",
+    ["Jerry", "Gerry", "Jerreigh"]
+]
+
+const types = [];
+
+for (let i = 0; i < zack.length; i++) {
+    console.log(zack[i]);
+    //types[i] = typeof zack[i];
+    types.push(typeof zack[i]);
+}
+console.log(types);
+
+const years = [1991, 1992, 1993, 1994, 1995, 1996, "nineteen ninety seven", "nineteen ninety eight"];
+
+const ages = [];
+
+for (let i = 0; i < years.length; i++) {
+    if (typeof years[i] !== "number") continue;
+    ages.push(2023 - years[i]);
+}
+console.log(ages);
