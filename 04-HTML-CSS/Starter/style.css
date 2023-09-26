@@ -1,0 +1,49 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(213, 255, 213);
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 75px;
+}
+
+h1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 50px;
+}
+
+.first {
+  font-size: 25px;
+  color: blueviolet;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.second {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+h6 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#your-name {
+  background-color: rgb(207, 172, 207);
+  padding: 40px;
+  border-radius: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
