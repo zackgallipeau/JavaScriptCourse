@@ -18,19 +18,24 @@ let score = 20;
 
 let highScore = 0;
 
+function displayMessage(message) {
+  document.querySelector(`.message`).textContent = message;
+}
+
 console.log(secretNumber);
 
 document.querySelector(`.check`).addEventListener(`click`, function () {
   const guess = Number(document.querySelector(`.guess`).value);
-  console.log(guess, typeof guess);
 
   //Makes sure that there is actually a number inputted
   if (!guess) {
-    document.querySelector(`.message`).textContent = 'Please enter a number';
+    displayMessage('Please enter a number.');
 
     //When the guess is correct/the player wins
   } else if (guess === secretNumber) {
-    document.querySelector(`.message`).textContent = 'Correct number!';
+    score--;
+    document.querySelector(`.score`).textContent = score;
+    displayMessage('Correct Number!');
     document.querySelector(`body`).style.backgroundColor = '#60b347';
     document.querySelector(`.number`).style.width = '30rem';
     document.querySelector(`.number`).textContent = secretNumber;
@@ -39,17 +44,22 @@ document.querySelector(`.check`).addEventListener(`click`, function () {
       document.querySelector(`.highscore`).textContent = highScore;
     }
 
-    //when the score is too low
-  } else if (score > 1 && guess < secretNumber) {
-    document.querySelector(`.message`).textContent = 'Too low!';
+    //when the guess is wrong
+  } else if (guess !== secretNumber && score > 1) {
+    displayMessage(guess > secretNumber ? 'Too high!' : 'Too low!');
     score--;
     document.querySelector(`.score`).textContent = score;
 
-    //when the score is too high
-  } else if (score > 1 && guess > secretNumber) {
-    document.querySelector(`.message`).textContent = 'Too high!';
-    score--;
-    document.querySelector(`.score`).textContent = score;
+    //   //when the score is too low
+    // } else if (score > 1 && guess < secretNumber) {
+    //   document.querySelector(`.message`).textContent = 'Too low!';
+    //   score--;
+    //   document.querySelector(`.score`).textContent = score;
+
+    //   //when the score is too high
+    // } else if (score > 1 && guess > secretNumber) {
+    //   document.querySelector(`.message`).textContent = 'Too high!';
+    //   score--;
 
     //when the player runs out of tries
   } else {
