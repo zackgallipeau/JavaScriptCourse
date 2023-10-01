@@ -50,7 +50,7 @@ var addExpr = function (a, b) {
 };
 
 var addArrow = (a, b) => a + b;
-*/
+
 
 //example of hoisting issues with va
 
@@ -63,3 +63,60 @@ function deleteShoppingCart() {
 }
 
 console.log(numProducts);
+
+function birthYear(birthYear) {
+  // console.log(2023 - birthYear);
+  // console.log(this); //returns undefined
+}
+
+birthYear(2001);
+
+const calcAgeArrow = birthYear => {
+  // console.log(2023 - birthYear);
+  // console.log(this); //returns window because arrow functions do not get their own "this" keyword
+};
+
+calcAgeArrow(2001);
+
+zack.calcAge();
+
+const matilda = {
+  year: 2017,
+};
+
+matilda.calcAge = zack.calcAge;
+
+matilda.calcAge();
+
+const f = zack.calcAge;
+
+console.log(f);
+
+f();
+
+
+const zack = {
+  firstName: 'Zack',
+  year: 2001,
+  calcAge: function () {
+    //   console.log(this);
+    console.log(2023 - this.year);
+
+    const self = this;
+    function isMillenial() {
+      console.log(self.year >= 1981 && self.year <= 1996);
+    }
+    isMillenial();
+  },
+  greet: () => console.log(`Hey ${this.firstName}`),
+};
+
+zack.calcAge();
+
+function addExpr(a, b) {
+  console.log(arguments);
+  return a + b;
+}
+
+console.log(addExpr(2, 5, 6, 7, 6, 3));
+*/
