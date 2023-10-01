@@ -119,4 +119,56 @@ function addExpr(a, b) {
 }
 
 console.log(addExpr(2, 5, 6, 7, 6, 3));
+
+let age = 30;
+let oldAge = age;
+age = 31;
+
+console.log(age);
+console.log(oldAge);
+
+const zack = {
+  firstName: 'Zack',
+  age: 22,
+};
+
+const friend = zack;
+
+friend.age = 27;
+console.log(`Friend:`, friend);
+console.log(`Me`, zack);
+
+//primitive types
+let lastName = 'Parkour';
+let oldLastName = lastName;
+lastName = 'Davis';
+
+// console.log(lastName);
+// console.log(oldLastName);
+
+//reference types
+const identity = {
+  lastName: 'Parkour',
+};
+
+//random stuff
+const newIdentity = identity;
+
+newIdentity.lastName = 'Beaver';
+
+console.log(identity.lastName);
+console.log(newIdentity.lastName);
+
+console.log(`I want a job :(`);
+
+const newNewIdentity = Object.assign({}, newIdentity);
+
+newNewIdentity.lastName = 'apricot';
+
+console.log(identity.lastName);
+console.log(newNewIdentity.lastName);
+
+newNewIdentity.height = '5 foot 2';
+
+console.log(newNewIdentity.height);
 */
