@@ -47,7 +47,30 @@ const restaurant = {
       `Here is your delicious pasta with ${ing1}, ${ing2}, and ${ing3}`
     );
   },
+
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient);
+    console.log(otherIngredients);
+  },
 };
+/*
+restaurant.orderPizza(
+  'pepperoni',
+  'onion',
+  'sausage',
+  'cilantro',
+  'parmesan cheese'
+);*/
+
+restaurant.numGuests = 1111;
+
+console.log('anchovies' || 'Zack');
+
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+
+console.log(guests1);
+
+//restaurant.orderPizza('Anchovies');
 
 // const ingredients = [
 //   prompt(`Let's make pasta! Ingredient 1?`),
@@ -66,13 +89,28 @@ const restaurant = {
 
 // const arr = [1, 2, ...[3, 4]];
 // console.log(arr);
-
+/*
 const [pizza, , risotto, ...otherFood] = [
   ...restaurant.mainMenu,
   ...restaurant.starterMenu,
 ];
 
 console.log(pizza, risotto, otherFood);
+
+const { sat, ...weekdays } = restaurant.openingHours;
+
+console.log(weekdays);
+
+function add(...numbers) {
+  console.log(numbers);
+  let total = 0;
+  for (let i = 0; i < numbers.length; i++) total += numbers[i];
+  console.log(total);
+}
+
+add(2, 3);
+add(3, 7, 65, 34, 3452);
+add(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
 /*
 const arr = [7, 8, 9];
