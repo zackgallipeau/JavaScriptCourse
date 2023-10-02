@@ -1,5 +1,6 @@
 'use strict';
-
+////////////////////////
+/*
 // Data needed for a later exercise
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
@@ -53,6 +54,31 @@ const restaurant = {
     console.log(otherIngredients);
   },
 };
+
+const rest1 = {
+  name: `Capri`,
+  numGuests: 20,
+  owner: `Mallory`,
+};
+
+const rest2 = {
+  name: `La Piazza`,
+  owner: `Giovanni Rossi`,
+};
+
+rest2.numberGuests = rest1.numGuests || 10;
+
+console.log(rest2.numberGuests);
+
+rest1.owner = rest1.owner && 'ANONYMOUS';
+console.log(rest1.owner);
+///////////////////////////////////////////
+/////////////////////////////////////////
+///////////////////////////////////////////
+*/
+////////////////////////////////////
+////////////////////////////////////
+//////////////////////////////////////
 /*
 restaurant.orderPizza(
   'pepperoni',
@@ -60,13 +86,22 @@ restaurant.orderPizza(
   'sausage',
   'cilantro',
   'parmesan cheese'
-);*/
+);
 
-restaurant.numGuests = 1111;
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('mushrooms', 'spinach');
+}
+// is the same as
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
 
-console.log('anchovies' || 'Zack');
+restaurant.numGuests = 0;
+
+//console.log('anchovies' || 'Zack');
 
 const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+
+const guestsCorrect = restaurant.numGuests ?? 10;
+console.log(guestsCorrect);
 
 console.log(guests1);
 
