@@ -26,4 +26,41 @@ const restaurant = {
       close: 24,
     },
   },
+
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
 };
+
+const {
+  name: restaurantName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+
+const { menu = [], starterMenu: starters = [] } = restaurant;
+
+console.log(menu, starters);
+
+//console.log(restaurantName, hours, tags);
+
+/*
+let [first, , second] = restaurant.categories;
+console.log(first, second);
+
+// let temp = second;
+// second = first;
+// first = temp;
+
+[first, second] = [second, first];
+
+console.log(first, second);
+
+const [starter, main] = restaurant.order(2, 0);
+console.log(starter, main);
+
+const alphabet = ['a', 'b', ['c', 'd']];
+const [i, , [j, k, w = 1]] = alphabet;
+
+console.log(i, j, k, w);
+*/
