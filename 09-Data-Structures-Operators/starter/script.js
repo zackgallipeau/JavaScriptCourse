@@ -1,6 +1,6 @@
 'use strict';
 ////////////////////////
-
+/*
 const game = {
   team1: 'Bayern Munich',
   team2: 'Borrussia Dortmund',
@@ -64,6 +64,18 @@ for (const [team, odds] of Object.entries(game.odds)) {
 }
 
 const scorers = {};
+
+for (const player of game.scored) {
+  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+}
+console.log(scorers);
+
+*/
+/////////////////////////////////
+////////
+/////////////////
+////////
+///////////////////////////
 
 /*
 //step 1
@@ -396,3 +408,22 @@ const [i, , [j, k, w = 1]] = alphabet;
 
 console.log(i, j, k, w);
 */
+
+const mySet = new Set([`hola`, 12, `hello`, true, true, false, true, false]);
+
+//console.log(mySet);
+
+// //example
+// const staff = [`Waiter`, `Chef`, `Waiter`, `Manager`, `Chef`, `Waiter`];
+
+// const staffUnique = new Set(staff);
+// console.log(staffUnique);
+
+const map = new Map();
+
+map.set(`I'm`, `The Map!`);
+map.set(`I'm`, `The Map, I'm the map!!`);
+//console.log(map.get(`I'm`));
+
+map.set(document.querySelector(`h1`), `Heading`);
+console.log(map.get(document.querySelector`h1`));
