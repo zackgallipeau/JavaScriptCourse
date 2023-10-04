@@ -1,7 +1,6 @@
 'use strict';
 ////////////////////////
 
-/*
 const game = {
   team1: 'Bayern Munich',
   team2: 'Borrussia Dortmund',
@@ -42,6 +41,31 @@ const game = {
     team2: 6.5,
   },
 };
+
+//1.
+const goals = game.scored.entries();
+//console.log(goals);
+const goalNumber = Object.keys(game.scored);
+
+for (const [goal, player] of goals) {
+  console.log(`Goal ${goal + 1}: ${player}`);
+}
+
+//2
+let avg = 0;
+for (const odds of Object.values(game.odds)) {
+  avg += odds;
+}
+console.log(avg / Object.values(game.odds).length);
+
+for (const [team, odds] of Object.entries(game.odds)) {
+  const teamString = team === `x` ? 'draw:' : `${game[team]} victory:`;
+  console.log(`Odds of ${teamString} ${odds} `);
+}
+
+const scorers = {};
+
+/*
 //step 1
 const [players1, players2] = game.players;
 console.log(players1);
@@ -78,8 +102,10 @@ printGoals(...game.scored);
 //step 7
 team1 < team2 && console.log(`Team 1 is more likely to win`);
 team1 > team2 && console.log(`Team 2 is more likely to win`);
-*/
 
+
+/////////////////////////////////////////
+/*
 // Data needed for a later exercise
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
@@ -167,6 +193,8 @@ const entries = Object.entries(restaurant.openingHours);
 for (const [day, { open, close }] of Object.entries(restaurant.openingHours)) {
   console.log(`On ${day} we open at ${open} and close at ${close}`);
 }
+*/
+/////////////////////////////////////////////
 
 /*
 //optional chaining
