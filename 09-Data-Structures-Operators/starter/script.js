@@ -92,21 +92,6 @@ const restaurant = {
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
-
   order: function (starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
@@ -132,8 +117,82 @@ const restaurant = {
     console.log(mainIngredient);
     console.log(otherIngredients);
   },
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // Open 24 hours
+      close: 24,
+    },
+  },
 };
 
+//looping over keys
+for (const day of Object.keys(restaurant.openingHours)) {
+  console.log(day);
+}
+
+const properties = Object.keys(restaurant.openingHours);
+
+for (const day of properties) {
+  console.log(day);
+}
+
+console.log(`We are open ${properties.length} days of the week`);
+
+let openStr = `We are open on ${properties.length} days: `;
+
+for (const day of properties) {
+  openStr += ` ${day},`;
+}
+console.log(openStr);
+
+//looping over object values
+for (const hours of Object.values(restaurant.openingHours)) {
+  openStr += `${Object.values(restaurant.openingHours)} `;
+}
+console.log(Object.values(restaurant.openingHours));
+
+console.log(openStr);
+
+const entries = Object.entries(restaurant.openingHours);
+
+//key and values
+for (const [day, { open, close }] of Object.entries(restaurant.openingHours)) {
+  console.log(`On ${day} we open at ${open} and close at ${close}`);
+}
+
+/*
+//optional chaining
+console.log(restaurant?.openingHours?.mon?.open);
+
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days) {
+  console.log(day);
+  const open = restaurant.openingHours[day]?.open ?? `closed`;
+  console.log(`On ${day}, we open at ${open}`);
+}
+
+//optional chaining a method
+console.log(restaurant.orderRisotto?.(0, 1) ?? `Unavailable.`);
+
+//optional chaining an array
+const users = [{ name: `Zack`, email: `zack@a.com` }, 42, 20];
+
+console.log(users[0]?.name ?? 'User array empty');
+
+console.log(users[1]?.name ?? 'User array empty');
+*/
+// console.log(restaurant.openingHours);
+
+/*
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 
 for (const item of menu) console.log(item);
@@ -147,7 +206,7 @@ for (const item of menu.entries()) {
 for (const [i, el] of menu.entries()) {
   console.log(`${i + 1}: ${el}`);
 }
-
+*/
 /*
 const rest1 = {
   name: `Capri`,
