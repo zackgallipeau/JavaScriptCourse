@@ -115,9 +115,9 @@ printGoals(...game.scored);
 team1 < team2 && console.log(`Team 1 is more likely to win`);
 team1 > team2 && console.log(`Team 2 is more likely to win`);
 
-
+*/
 /////////////////////////////////////////
-/*
+
 // Data needed for a later exercise
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
@@ -171,41 +171,41 @@ const restaurant = {
   },
 };
 
-//looping over keys
-for (const day of Object.keys(restaurant.openingHours)) {
-  console.log(day);
-}
+// //looping over keys
+// for (const day of Object.keys(restaurant.openingHours)) {
+//   console.log(day);
+// }
 
-const properties = Object.keys(restaurant.openingHours);
+// const properties = Object.keys(restaurant.openingHours);
 
-for (const day of properties) {
-  console.log(day);
-}
+// for (const day of properties) {
+//   console.log(day);
+// }
 
-console.log(`We are open ${properties.length} days of the week`);
+// console.log(`We are open ${properties.length} days of the week`);
 
-let openStr = `We are open on ${properties.length} days: `;
+// let openStr = `We are open on ${properties.length} days: `;
 
-for (const day of properties) {
-  openStr += ` ${day},`;
-}
-console.log(openStr);
+// for (const day of properties) {
+//   openStr += ` ${day},`;
+// }
+// console.log(openStr);
 
-//looping over object values
-for (const hours of Object.values(restaurant.openingHours)) {
-  openStr += `${Object.values(restaurant.openingHours)} `;
-}
-console.log(Object.values(restaurant.openingHours));
+// //looping over object values
+// for (const hours of Object.values(restaurant.openingHours)) {
+//   openStr += `${Object.values(restaurant.openingHours)} `;
+// }
+// console.log(Object.values(restaurant.openingHours));
 
-console.log(openStr);
+// console.log(openStr);
 
-const entries = Object.entries(restaurant.openingHours);
+// const entries = Object.entries(restaurant.openingHours);
 
-//key and values
-for (const [day, { open, close }] of Object.entries(restaurant.openingHours)) {
-  console.log(`On ${day} we open at ${open} and close at ${close}`);
-}
-*/
+// //key and values
+// for (const [day, { open, close }] of Object.entries(restaurant.openingHours)) {
+//   console.log(`On ${day} we open at ${open} and close at ${close}`);
+// }
+
 /////////////////////////////////////////////
 
 /*
@@ -427,3 +427,33 @@ map.set(`I'm`, `The Map, I'm the map!!`);
 
 map.set(document.querySelector(`h1`), `Heading`);
 console.log(map.get(document.querySelector`h1`));
+
+const question = new Map([
+  [`Question`, `What is the best programming language in the world?`],
+  [1, `C`],
+  [2, `Java`],
+  [3, `JavaScript`],
+  [`correct`, 3],
+  [true, `Correct!`],
+  [false, `Try again. :(`],
+]);
+
+console.log(Object.entries(restaurant.openingHours));
+
+//console.log(question);
+
+//convert object to map
+const hoursMap = new Map(Object.entries(restaurant.openingHours));
+
+//console.log(hoursMap);
+
+console.log(question.get(`Question`));
+//for of loop on map
+for (const [key, value] of question) {
+  if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+const answer = 3; //Number(prompt('Enter the correct answer'));
+
+//the first question.get has a nested question.get with the statement `correct` === 3, which will return either true or false. True is paired to "correct" in the map, and false to "incorrect" so this will check if the right answer was given and return the appropriate response
+console.log(question.get(question.get(`correct`) === answer));
