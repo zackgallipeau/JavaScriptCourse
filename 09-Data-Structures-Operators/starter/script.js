@@ -408,7 +408,7 @@ const [i, , [j, k, w = 1]] = alphabet;
 
 console.log(i, j, k, w);
 */
-
+/*
 const mySet = new Set([`hola`, 12, `hello`, true, true, false, true, false]);
 
 //console.log(mySet);
@@ -457,3 +457,75 @@ const answer = 3; //Number(prompt('Enter the correct answer'));
 
 //the first question.get has a nested question.get with the statement `correct` === 3, which will return either true or false. True is paired to "correct" in the map, and false to "incorrect" so this will check if the right answer was given and return the appropriate response
 console.log(question.get(question.get(`correct`) === answer));
+
+
+const gameEvents = new Map([
+  [17, '⚽ GOAL'],
+  [36, '� Substitution'],
+  [47, '⚽ GOAL'],
+  [61, '� Substitution'],
+  [64, '� Yellow card'],
+  [69, '� Red card'],
+  [70, '� Substitution'],
+  [72, '� Substitution'],
+  [76, '⚽ GOAL'],
+  [80, '⚽ GOAL'],
+  [92, '� Yellow card'],
+]);
+
+//1
+const events = [...new Set(gameEvents.values())];
+console.log(events);
+
+//2
+gameEvents.delete(64);
+console.log(gameEvents);
+
+//3
+console.log(
+  `An event happened, on average, every ${90 / gameEvents.size} minutes`
+);
+
+//4
+for (const [time, event] of gameEvents) {
+  time <= 45;
+  const half = time <= 45 ? `FIRST` : `SECOND`;
+  console.log(`[${half} HALF] ${time}: ${event}`);
+}
+*/
+
+const airline = 'TAP Air Portugal';
+const plane = `A320`;
+
+//console.log(plane[0]);
+
+for (let i = 0; i < plane.length; i++) {
+  console.log(plane[i]);
+}
+
+console.log(airline.slice(2, 6));
+
+console.log(airline.slice(airline.length - 5, airline.length - 2));
+
+//returns the last word in the string
+console.log(airline.slice(airline.lastIndexOf(' ') + 1)); //the + 1 removes the space that would be included otherwise
+
+//returns the first word in the string
+console.log(airline.slice(0, airline.indexOf(' ')));
+
+console.log(airline.slice(-2));
+
+const checkMiddleSeat = function (seat) {
+  const s = seat.slice(-1);
+  if (s === 'B' || s === 'E') {
+    console.log(
+      'You got the middle seat. LOSERRRRRRRRRRRR EVERYONE POINT AND LAUGH AT THIS LOSERRRRRR'
+    );
+  } else {
+    console.log(`You did not get a middle seat but you're still a loser`);
+  }
+};
+
+checkMiddleSeat(`11B`);
+checkMiddleSeat(`23C`);
+checkMiddleSeat(`3E`);
