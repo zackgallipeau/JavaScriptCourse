@@ -493,10 +493,129 @@ for (const [time, event] of gameEvents) {
   console.log(`[${half} HALF] ${time}: ${event}`);
 }
 */
-
+/*
 const airline = 'TAP Air Portugal';
 const plane = `A320`;
 
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+//takes a string with poor capitalization, turns it to lower case, and then capitalizes the first letter
+const passenger = `zACk`;
+const passengerLower = passenger.toLowerCase();
+//console.log(passenger);
+//console.log(passengerLower);
+const passengerCorrect =
+  passengerLower[0].toUpperCase() + passengerLower.slice(1);
+//console.log(passengerCorrect);
+
+const email = 'hello@hello.hello';
+const loginEmail = '       Hello@helLO.heLlo \n';
+
+const lowerEmail = loginEmail.toLowerCase();
+console.log(lowerEmail);
+const trimmedEmail = lowerEmail.trim();
+
+const newEmail = loginEmail.toLowerCase().trim();
+console.log(newEmail);
+
+console.log(trimmedEmail);
+
+const priceUS = `$288.97`;
+const priceGB = priceUS.replace(`$`, `£`);
+console.log(priceGB);
+
+const greeting = 'howdy howdy howdy';
+const normalGreeting = greeting.replaceAll(`howdy`, `hello`);
+console.log(normalGreeting);
+
+console.log(normalGreeting.includes('parkour'));
+console.log(normalGreeting.includes('hello'));
+
+console.log(normalGreeting.endsWith('lo'));
+
+console.log(normalGreeting.startsWith(`hell`));
+
+//practice exercise
+
+const checkBaggage = function (items) {
+  if (
+    items.toLowerCase().includes('knife') ||
+    items.toLowerCase().includes('gun')
+  ) {
+    console.log(`You are NOT allowed on the plane`);
+  } else {
+    console.log(`Welcome aboard!`);
+  }
+};
+
+checkBaggage('I have a laptop, some food, and a pocket kniFE');
+
+checkBaggage('I have socks and a camera');
+
+const baggage = 'I have snacks for the ride and a GUN for protection';
+
+//console.log(baggage.split(' '));
+
+const bleh = [
+  'hello',
+  'my',
+  'name',
+  'is',
+  'Indigo',
+  'Montoya',
+  'yOu',
+  'KILL',
+  'mY',
+  'faTHeR',
+  'prEPaRe',
+  'to',
+  'die',
+];
+
+const helb = bleh.join(` `).toLowerCase();
+//console.log(helb);
+
+const capitalizeName = function (name) {
+  const names = name.split(` `); //splits the name into an array of individual words
+  const namesUpper = []; //empty array to be used later
+
+  for (const abracadabra of names) {
+    //namesUpper.push(abracadabra[0].toUpperCase() + abracadabra.slice(1)); //capitalizes the first letter, then joins it with the rest of the word and adds it to the array
+    namesUpper.push(
+      abracadabra.replace(abracadabra[0], abracadabra[0].toUpperCase())
+    );
+  }
+  console.log(namesUpper.join(` `)); //converts the array into a string and prints
+};
+
+capitalizeName(`zachary david gallipeau the fifth`);
+
+const announcement = `Go to gate 23!`;
+
+console.log(announcement.padStart(25, `+`));
+
+const maskCreditCard = function (number) {
+  const str = String(number);
+  const slice = str.slice(-4);
+  console.log(slice.padStart(str.length, '*'));
+};
+
+console.log(maskCreditCard(123424398789));
+
+//repeat
+
+const message4 = `Bad weather... All Departures Delayed...`;
+
+//console.log(message4.repeat(50));
+
+const planesInLine = function (num) {
+  console.log(`There are ${num} planes in line ${`✈️`.repeat(num)}`);
+};
+
+planesInLine(30);
+
+/*
 //console.log(plane[0]);
 
 for (let i = 0; i < plane.length; i++) {
@@ -529,3 +648,4 @@ const checkMiddleSeat = function (seat) {
 checkMiddleSeat(`11B`);
 checkMiddleSeat(`23C`);
 checkMiddleSeat(`3E`);
+*/
