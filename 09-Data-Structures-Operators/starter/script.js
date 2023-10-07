@@ -649,3 +649,58 @@ checkMiddleSeat(`11B`);
 checkMiddleSeat(`23C`);
 checkMiddleSeat(`3E`);
 */
+
+document.body.append(document.createElement(`textarea`));
+document.body.append(document.createElement(`button`));
+
+const finalText = [];
+
+//this eventListener checks for when the button is pressed
+document.querySelector(`button`).addEventListener(`click`, function () {
+  const text = document.querySelector(`textarea`).value;
+  console.log(text);
+  //the above section takes the text from the textarea and puts it into a variable called "text"
+
+  //this array takes the text, puts it in lower case, and splits it after each enter key is pressed
+
+  const newArray = text.toLowerCase().split('\n');
+  // console.log(newArray);
+
+  //the first for loop goes over the array and splits them into a sub array each time there is an underscore
+  for (let i = 0; i < newArray.length; i++) {
+    finalText[i] = newArray[i].trim().split(`_`);
+
+    let output = finalText[i][0]; //output will be printed at the end of this loop every time it loops. Each time it will print one line. This initializes it with the value of the first word of the sub-array finalText
+
+    //the second for loop goes over each item in the sub-array finalText. It takes the first letter of each array item, capitalizes it, and then adds the rest of that array item in lower case
+    for (let e = 1; e < finalText[i].length; e++) {
+      output += finalText[i][e][0].toUpperCase() + finalText[i][e].slice(1);
+    }
+    //this prints the output, adds spaces until it is 20 characters long, and then adds a checkmark, with one additional checkmark printing each tiem the loop runs
+    console.log(output.padEnd(20, ' ') + `✅`.repeat(i + 1));
+
+    /*
+    underscore_case
+ first_name
+Some_Variable
+   calculate_AGE
+delayed_departure
+*/
+  }
+
+  //////////////////////////this works
+  /*
+  const newText = text.toLowerCase().split(`_`);
+  console.log(newText);
+
+  let finalText = newText[0];
+  console.log(finalText);
+
+  for (let i = 1; i < newText.length; i++) {
+    finalText += newText[i][0].toUpperCase() + newText[i].slice(1);
+  }
+  console.log(finalText);
+  return finalText;
+  */
+  ///////////////////////////////////////
+});
