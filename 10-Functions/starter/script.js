@@ -72,7 +72,7 @@ const highFive = function () {
 };
 
 document.body.addEventListener(`click`, highFive);
-*/
+
 
 const greet = function (greeting) {
   return function (name) {
@@ -84,3 +84,70 @@ const greetArrow = greeting => name => console.log(`${greeting} ${name}`);
 
 const greetHey = greetArrow('Hi');
 greetHey('Zack');
+*/
+
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode} ${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}` });
+  },
+};
+
+lufthansa.book(189, 'Zack');
+console.log(lufthansa.bookings);
+
+const book = lufthansa.book;
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+const swiss = {
+  airline: 'Swiss',
+  iataCode: 'LX',
+  bookings: [],
+};
+
+book.call(eurowings, 242, 'Para Sailin');
+
+const pliajsdf = [209, 'Tom Tomlinson'];
+
+book.apply(eurowings, pliajsdf); //same as book.call(eurowings, ...pliajsdf);
+
+const bookEW = book.bind(eurowings);
+
+bookEW(324, 'Steve McStevie');
+
+console.log(eurowings.bookings);
+
+const bookLX = book.bind(swiss);
+
+bookLX(209, 'Ronald leRonald');
+
+//with event listeners
+
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  this.planes++;
+  console.log(`${this.airline} now has ${this.planes} planes`);
+};
+
+document
+  .querySelector(`.buy`)
+  .addEventListener(`click`, lufthansa.buyPlane.bind(lufthansa));
+
+//partial application
+const addTax = (rate, value) => value + value * rate;
+
+console.log(addTax(0.1, 200));
+
+const addSalesTax = addTax.bind(null, 0.05);
+
+console.log(addSalesTax(200));
