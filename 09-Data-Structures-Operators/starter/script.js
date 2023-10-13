@@ -118,10 +118,6 @@ team1 > team2 && console.log(`Team 2 is more likely to win`);
 */
 /////////////////////////////////////////
 
-// Data needed for a later exercise
-const flights =
-  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
-
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -678,29 +674,20 @@ document.querySelector(`button`).addEventListener(`click`, function () {
     }
     //this prints the output, adds spaces until it is 20 characters long, and then adds a checkmark, with one additional checkmark printing each tiem the loop runs
     console.log(output.padEnd(20, ' ') + `✅`.repeat(i + 1));
-
-    /*
-    underscore_case
- first_name
-Some_Variable
-   calculate_AGE
-delayed_departure
-*/
   }
-
-  //////////////////////////this works
-  /*
-  const newText = text.toLowerCase().split(`_`);
-  console.log(newText);
-
-  let finalText = newText[0];
-  console.log(finalText);
-
-  for (let i = 1; i < newText.length; i++) {
-    finalText += newText[i][0].toUpperCase() + newText[i].slice(1);
-  }
-  console.log(finalText);
-  return finalText;
-  */
-  ///////////////////////////////////////
 });
+
+// Data needed for a later exercise
+const flights =
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+for (const flight of flights.split('+')) {
+  const [type, from, to, time] = flights.split(';');
+  const output = `${type.startsWith(`_Delayed`) ? `🔴` : ``} ${type.replaceAll(
+    '_',
+    ' '
+  )} from ${from.slice(0, 3).toUpperCase()} to ${to
+    .slice(0, 3)
+    .toUpperCase()} at ${time.replaceAll(':', 'h')}`;
+  console.log(output);
+}
