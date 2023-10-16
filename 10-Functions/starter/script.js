@@ -84,7 +84,7 @@ const greetArrow = greeting => name => console.log(`${greeting} ${name}`);
 
 const greetHey = greetArrow('Hi');
 greetHey('Zack');
-*/
+
 
 const lufthansa = {
   airline: 'Lufthansa',
@@ -151,3 +151,53 @@ console.log(addTax(0.1, 200));
 const addSalesTax = addTax.bind(null, 0.05);
 
 console.log(addSalesTax(200));
+
+
+const poll = {
+  question: 'What is your favorite programming language?',
+  options: ['1: Javascript', '2: Python', '3: Rust', '4: C++'],
+  answers: new Array(4).fill(0),
+  registerNewAnswer() {
+    const currentAnswer = Number(
+      prompt(
+        `${this.question}\n ${this.options.join('\n')} \nInput your answer`
+      )
+    );
+    if (currentAnswer < 1 || currentAnswer > 4) {
+      alert(
+        `You fool. You absolute moron. There were four options to choose from and you picked an option number that doesn't exist`
+      );
+    } else {
+      this.answers[currentAnswer - 1] += 1;
+    }
+    return this.displayResults();
+  },
+  displayResults(type = 'arra') {
+    if (type === 'array') {
+      console.log(this.answers);
+    } else {
+      console.log(
+        `Poll results are ${this.answers[0]} votes for ${this.options[0].slice(
+          3
+        )}, ${this.answers[1]} votes for ${this.options[1].slice(3)}, ${
+          this.answers[2]
+        } votes for ${this.options[2].slice(3)}, and ${
+          this.answers[3]
+        } votes for ${this.options[3].slice(3)}`
+      );
+    }
+  },
+};
+
+document
+  .querySelector(`.poll`)
+  .addEventListener(`click`, poll.registerNewAnswer.bind(poll));
+
+
+(function () {
+  console.log('this will only run once');
+})();
+
+(() => console.log('this will only run once'))();
+*/
+const secureBooking = function () {};
