@@ -200,4 +200,23 @@ document
 
 (() => console.log('this will only run once'))();
 */
-const secureBooking = function () {};
+
+//closures
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passenges`);
+  };
+};
+
+const booker = secureBooking();
+
+booker();
+booker();
+booker();
+secureBooking()();
+booker();
+secureBooking()();
+booker();
