@@ -75,6 +75,26 @@ const currencies = new Map([
 
 /////////////////////////////////////////////////
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+      <div class="movements__date">${12 - i} days ago</div>
+      <div class="movements__value">${mov}€</div>
+    </div>`;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movements);
+
+/*
 let arr = ['a', 'b', 'c', 'd', 'e'];
 
 console.log(arr.slice(2));
@@ -122,3 +142,44 @@ console.log(currenciesUnique);
 currenciesUnique.forEach(function (value, key, map) {
   console.log(`${key}: ${value}`);
 });
+*/
+
+const dogsJulia = [3, 5, 2, 12, 7];
+const dogsKate = [4, 1, 15, 8, 3];
+
+function checkDogs(dogsJulia, dogsKate) {
+  const dogsJuliaCorrected = dogsJulia.slice(1, -2);
+  const arrayCombined = dogsJuliaCorrected.concat(dogsKate);
+
+  arrayCombined.forEach(function (age, i) {
+    if (age > 2) {
+      console.log(`Dog number ${i + 1} is an adult, and is ${age} years old`);
+    } else {
+      console.log(`Dog number ${i + 1} is still a puppy.`);
+    }
+  });
+}
+
+checkDogs(dogsJulia, dogsKate);
+
+const euroToUsd = 1.1;
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movementsToUsd = movements.map(mov => mov * euroToUsd);
+
+console.log(movements);
+console.log(movementsToUsd);
+
+const movementsForLoop = [];
+for (let mov of movements) {
+  movementsForLoop.push((mov *= 2));
+}
+
+console.log(movementsForLoop);
+
+const movementString = movements.map((mov, i, array) => {
+  return `Movement ${i + 1}: You ${
+    mov > 0 ? 'depositied' : 'withdrew'
+  } ${Math.abs(mov)}`;
+});
+
+console.log(movementString);
