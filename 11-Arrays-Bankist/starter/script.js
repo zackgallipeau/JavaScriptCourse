@@ -160,21 +160,21 @@ function checkDogs(dogsJulia, dogsKate) {
   });
 }
 
-checkDogs(dogsJulia, dogsKate);
+// checkDogs(dogsJulia, dogsKate);
 
 const euroToUsd = 1.1;
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const movementsToUsd = movements.map(mov => mov * euroToUsd);
 
-console.log(movements);
-console.log(movementsToUsd);
+// console.log(movements);
+// console.log(movementsToUsd);
 
 const movementsForLoop = [];
 for (let mov of movements) {
   movementsForLoop.push((mov *= 2));
 }
 
-console.log(movementsForLoop);
+//console.log(movementsForLoop);
 
 const movementString = movements.map((mov, i, array) => {
   return `Movement ${i + 1}: You ${
@@ -183,3 +183,54 @@ const movementString = movements.map((mov, i, array) => {
 });
 
 console.log(movementString);
+
+//using .map()
+// accounts.map(function (account) {
+//   account.username = account.owner
+//     .toLowerCase()
+//     .split(' ')
+//     .map(name => name[0])
+//     .join('');
+//   console.log(account.username);
+// });
+
+//using forEach
+function createUsernames(accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+    console.log(acc.username);
+  });
+}
+
+createUsernames(accounts);
+
+const deposits = movements.filter(mov => mov > 0);
+
+console.log(deposits);
+
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
+
+//using reduce
+const balance = movements.reduce((acc, cur) => {
+  return acc + cur;
+}, 0);
+
+//using for loops
+let balance2 = 0;
+for (const mov of movements) {
+  balance2 += mov;
+}
+
+console.log(balance);
+console.log(balance2);
+
+function calcPrintBalance(movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+}
+calcPrintBalance(movements);
+labelBalance.textContent = `EUR: ${balance}`;
