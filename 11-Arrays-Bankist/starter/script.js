@@ -233,4 +233,62 @@ function calcPrintBalance(movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
 }
 calcPrintBalance(movements);
-labelBalance.textContent = `EUR: ${balance}`;
+labelBalance.textContent = `${balance}€`;
+
+const highestValue = movements.reduce(
+  (acc, mov) => (mov > acc ? (acc = mov) : (acc = acc)),
+  movements[0]
+);
+
+console.log(highestValue);
+
+const lowestValue = movements.reduce(
+  (acc, mov) => (mov < acc ? (acc = mov) : (acc = acc)),
+  movements[0]
+);
+
+console.log(lowestValue);
+
+const usd = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * euroToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(usd);
+
+function calcDisplaySummary(movemenmts) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => deposit * 0.012)
+    .filter(interest => interest > 1)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  labelSumInterest.textContent = `${interest}€`;
+}
+
+calcDisplaySummary(movements);
+
+const test1 = [5, 2, 4, 1, 15, 8, 3];
+const test2 = [16, 6, 10, 5, 6, 1, 4];
+
+function calcAverageHumanAge(arr) {
+  const humanAge = arr
+    .map(dogAge => (dogAge <= 2 ? dogAge * 2 : 16 + dogAge * 4))
+    .filter(dogAge => dogAge >= 18)
+    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+  console.log(humanAge);
+}
+calcAverageHumanAge(test1);
+
+//find method
+console.log(movements.find(mov => mov < 0));
