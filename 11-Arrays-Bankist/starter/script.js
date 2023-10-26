@@ -384,7 +384,6 @@ btnLoan.addEventListener(`click`, function (e) {
 
 btnClose.addEventListener(`click`, function (e) {
   e.preventDefault();
-  console.log(`BYE BITCH`);
   if (
     inputCloseUsername.value === currentAccount.username &&
     Number(inputClosePin.value) === currentAccount.pin
@@ -453,3 +452,33 @@ const numLargeDeposit = accounts
   .filter(mov => mov > 1000).length;
 
 console.log(numLargeDeposit);
+
+//Object with all deposits and withdrawals
+
+const sums = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+      return sums;
+    },
+    { deposits: 0, withdrawals: 0 }
+  );
+
+console.log(sums);
+
+//title case converter
+const convertTitleCase = sentence => {
+  const capitalizeFirst = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = sentence
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalizeFirst(word)))
+    .join(' ');
+  return capitalizeFirst(titleCase);
+};
+
+console.log(convertTitleCase('The duck walked up to the lemonade stand'));
