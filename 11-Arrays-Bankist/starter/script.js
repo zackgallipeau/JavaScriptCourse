@@ -438,3 +438,18 @@ console.log(movements.sort());
 
 movements.sort((a, b) => a - b);
 console.log(movements);
+
+//Sum of all deposits in the entire bank
+const bankDepositSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, cur) => sum + cur, 0);
+
+console.log(bankDepositSum);
+
+//Number of deposits above 1,000 across entire bank
+const numLargeDeposit = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 1000).length;
+
+console.log(numLargeDeposit);
