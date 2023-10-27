@@ -467,7 +467,7 @@ const sums = accounts
 
 console.log(sums);
 
-//title case converter
+//title case converter///////////////////////////
 const convertTitleCase = sentence => {
   const capitalizeFirst = str => str[0].toUpperCase() + str.slice(1);
 
@@ -481,4 +481,81 @@ const convertTitleCase = sentence => {
   return capitalizeFirst(titleCase);
 };
 
-console.log(convertTitleCase('The duck walked up to the lemonade stand'));
+console.log(convertTitleCase('THE dUCk wAlKeD Up tO THe LeMonaDE StaND'));
+
+// coding challenges
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+// 1. Calculate recommended food portion
+
+dogs.forEach(dog => {
+  dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28);
+});
+
+// 2. Find Sarah's dog and log whether it eats too little or too much
+for (let i = 0; i < dogs.length; i++) {
+  if (dogs[i].owners.includes('Sarah')) {
+    if (dogs[i].curFood === dogs[i].recommendedFood) {
+      console.log("Sarah's dog eats enough food");
+    } else if (dogs[i].curFood > dogs[i].recommendedFood) {
+      console.log("Sarah's dog should eat less food.");
+    } else {
+      console.log("Sarah's dog should eat more food.");
+    }
+  }
+}
+
+// 3. Create an array with all owners of dogs who eat too much and another array with all owners of dogs who eat too little
+const ownersEatTooMuch = [];
+const ownersEatTooLittle = [];
+function calcFood(arr) {
+  dogs.forEach(function (dog) {
+    if (dog.curFood > dog.recommendedFood) {
+      ownersEatTooMuch.push(...dog.owners);
+    } else if (dog.curFood < dog.recommendedFood) {
+      ownersEatTooLittle.push(...dog.owners);
+    }
+  });
+  console.log(ownersEatTooMuch);
+  console.log(ownersEatTooLittle);
+}
+calcFood(dogs);
+
+// 4. Log a string to the console for each array created in 3. "x and y's dog eats too little" and "x and y's dog eats too much
+
+const strOwnersEatTooMuch =
+  ownersEatTooMuch.join(' and ') + "'s dogs eat too much!";
+console.log(strOwnersEatTooMuch);
+
+const strOwnersEatTooLittle =
+  ownersEatTooLittle.join(' and ') + "'s dogs eat too little!";
+console.log(strOwnersEatTooLittle);
+
+// 5. Log whether there is a dog who eats EXACTLY the recommended amount of food
+
+console.log(dogs.some(dog => dog.curFood === dog.recommendedFood));
+
+// 6. Check if any dogs are eating an okay amount of food
+
+const okayAmount = dog =>
+  dog.curFood < dog.recommendedFood * 1.1 &&
+  dog.curFood > dog.recommendedFood * 0.9;
+
+console.log(dogs.some(okayAmount));
+
+// 7. Create an array containing the dogs that are eating an okay amount of food
+
+const arrOkayAmount = dogs.filter(okayAmount);
+
+console.log(arrOkayAmount);
+
+// 8.
+
+const dogsSorted = dogs.map(dog => dog.recommendedFood).sort();
+console.log(dogsSorted);
