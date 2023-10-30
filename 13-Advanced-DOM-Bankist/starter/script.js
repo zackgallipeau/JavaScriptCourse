@@ -1,13 +1,16 @@
 'use strict';
 
 ///////////////////////////////////////
-// Modal window
 
+// Selectors
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector(`.btn--scroll-to`);
+const section1 = document.getElementById(`section--1`);
 
+// Modal window
 const openModal = function (e) {
   e.preventDefault();
   modal.classList.remove('hidden');
@@ -30,11 +33,45 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-const btnScrollTo = document.querySelector(`.btn--scroll-to`);
-const section1 = document.getElementById(`section--1`);
+// Event handlers
 
 btnScrollTo.addEventListener(`click`, function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Page navigation
+
+// This is less efficient than the method below
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     console.log('LINK');
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  //matching strategy - makes sure to only act if a link is clicked
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+// Tabbed Component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+
+  if (!clicked) return;
+  console.log(clicked);
+  clicked.classList.add('operations__tab--active');
 });
 
 //////////////////////////////////////////
@@ -86,7 +123,7 @@ logo.classList.add('a');
 logo.classList.remove('b');
 logo.classList.toggle('c');
 logo.classList.contains('d');
-*/
+
 
 const h1 = document.querySelector('h1');
 
@@ -113,5 +150,32 @@ document.querySelector(`.nav__links`).addEventListener(`click`, function (e) {
 }),
   document.querySelector(`.nav`).addEventListener(`click`, function (e) {
     this.style.backgroundColor = randomColor();
-    console.log('BIG D', e.target, e.currentTarget, this);
+    console.log('Header', e.target, e.currentTarget, this);
   });
+
+
+const h1 = document.querySelector('h1');
+
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes);
+console.log(h1.children);
+
+// Traversing the DOM tree - downwards
+h1.firstElementChild.style.color = 'red';
+h1.lastElementChild.style.color = 'yellow';
+
+// Traversing the DOM tree - upwards
+
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+
+console.log(h1.previousSibling);
+// h1.previousSibling.textContent = 'goodbye';
+
+const h1 = document.querySelector('h1');
+console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach(function (el) {
+  if (el != h1) {
+    el.style.transform = 'scale(0.5)';
+  }
+});
+*/
