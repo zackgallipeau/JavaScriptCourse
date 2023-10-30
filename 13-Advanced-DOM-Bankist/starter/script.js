@@ -30,6 +30,13 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+const btnScrollTo = document.querySelector(`.btn--scroll-to`);
+const section1 = document.getElementById(`section--1`);
+
+btnScrollTo.addEventListener(`click`, function (e) {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
 //////////////////////////////////////////
 //////////////////////////////////////////
 
@@ -37,7 +44,7 @@ document.addEventListener('keydown', function (e) {
 /*
 console.log(document.body);
 
-*/
+
 
 const header = document.querySelector(`.header`);
 
@@ -48,4 +55,43 @@ message.innerHTML =
 
 // document.querySelector(`.highlight`).textContent = 'hehehe boyy';
 
-header.prepend(message);
+// header.prepend(message);
+header.append(message);
+// header.before(message);
+// header.after(message);
+
+// Delete elements
+document.querySelector('.btn--close-cookie').addEventListener(`click`, () => {
+  message.remove();
+});
+
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+
+console.log(getComputedStyle(message).color);
+
+message.style.height =
+  Number.parseFloat(getComputedStyle(message).height) + 40 + 'px';
+
+const logo = document.querySelector('.nav__logo');
+
+logo.alt = 'Beautiful minimalist logo';
+console.log(logo.alt);
+console.log(logo.src);
+
+console.log(logo.getAttribute('src'));
+console.log(logo.dataset.versionNumber);
+
+logo.classList.add('a');
+logo.classList.remove('b');
+logo.classList.toggle('c');
+logo.classList.contains('d');
+*/
+
+const h1 = document.querySelector('h1');
+
+function h1Alert(e) {
+  alert('addEventListener: Great! You are reading the heading :D');
+  h1.removeEventListener('mouseenter', h1Alert);
+}
+h1.addEventListener('mouseenter', h1Alert);
