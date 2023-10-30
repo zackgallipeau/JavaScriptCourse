@@ -90,8 +90,28 @@ logo.classList.contains('d');
 
 const h1 = document.querySelector('h1');
 
-function h1Alert(e) {
-  alert('addEventListener: Great! You are reading the heading :D');
-  h1.removeEventListener('mouseenter', h1Alert);
-}
-h1.addEventListener('mouseenter', h1Alert);
+// function h1Alert(e) {
+//   alert('addEventListener: Great! You are reading the heading :D');
+//   h1.removeEventListener('mouseenter', h1Alert);
+// }
+// h1.addEventListener('mouseenter', h1Alert);
+
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+const randomColor = () =>
+  `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+
+document.querySelector(`.nav__link`).addEventListener(`click`, function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('NAV LINK', e.target, e.currentTarget);
+});
+
+document.querySelector(`.nav__links`).addEventListener(`click`, function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('NAV BAR', e.target, e.currentTarget);
+}),
+  document.querySelector(`.nav`).addEventListener(`click`, function (e) {
+    this.style.backgroundColor = randomColor();
+    console.log('BIG D', e.target, e.currentTarget, this);
+  });
