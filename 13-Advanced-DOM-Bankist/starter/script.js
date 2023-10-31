@@ -10,6 +10,12 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector(`.btn--scroll-to`);
 const section1 = document.getElementById(`section--1`);
 
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+const nav = document.querySelector('.nav');
+
 // Modal window
 const openModal = function (e) {
   e.preventDefault();
@@ -62,17 +68,232 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 // Tabbed Component
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('operations__content');
 
+// Event listener on the parent element then assigns clicked to the child element that was clicked on
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
 
+  //exits the function if an area inside the parent that is not a button was clicked
   if (!clicked) return;
-  console.log(clicked);
+
+  //forEach removes the active tab class the previous active class and then adds it to the one that was clicked.
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  //adds the active tab class to the correct tab
   clicked.classList.add('operations__tab--active');
+
+  // Hides all tab content
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  // Activates the correct tab content
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
+
+// Nav links fade animation
+
+function navFade(e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) {
+        el.style.opacity = this;
+      }
+    });
+    logo.style.opacity = this;
+  }
+}
+
+nav.addEventListener('mouseover', navFade.bind(0.5));
+
+nav.addEventListener('mouseout', navFade.bind(1));
+
+// Sticky nav bar
+
+// //ineffective method
+// const initialCoords = section1.getBoundingClientRect();
+// console.log(initialCoords);
+// window.addEventListener('scroll', function (e) {
+//   if (window.scrollY > initialCoords.top) {
+//     nav.classList.add('sticky');
+//   } else {
+//     nav.classList.remove('sticky');
+//   }
+// });
+
+// function observerCallback(entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   });
+// }
+
+// const observerOptions = {
+//   root: null,
+//   threshold: [0, 0.2],
+// };
+
+// const observer = new IntersectionObserver(observerCallback, observerOptions);
+// observer.observe(section1);
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+
+function stickyNav(entries) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+}
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
+
+headerObserver.observe(header);
+
+// Reveal section animation
+
+const allSections = document.querySelectorAll('.section');
+
+function revealSection(entries, observer) {
+  const [entry] = entries;
+
+  if (entry.isIntersecting) {
+    entry.target.classList.remove('section--hidden');
+  } else {
+    entry.target.classList.add('section--hidden');
+  }
+}
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+//hides sections initially
+allSections.forEach(section => {
+  sectionObserver.observe(section);
+  // section.classList.add('section--hidden');
+});
+
+// Lazy loading images
+const imageTargets = document.querySelectorAll('img[data-src');
+
+function loadImage(entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+
+  //replace src with data-src
+  entry.target.src = entry.target.dataset.src;
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+}
+
+const imageObserver = new IntersectionObserver(loadImage, {
+  root: null,
+  threshold: 0,
+  rootMargin: '-200px',
+});
+
+imageTargets.forEach(img => imageObserver.observe(img));
+
+// Slider functionality
+function slider() {
+  const slides = document.querySelectorAll('.slide');
+  const buttonLeft = document.querySelector('.slider__btn--left');
+  const buttonRight = document.querySelector('.slider__btn--right');
+  let currentSlide = 0;
+  const dotContainer = document.querySelector('.dots');
+
+  createDots();
+  activeDot(0);
+
+  //Spreads the slides out to their appropriate location
+  slides.forEach((s, i) => (s.style.transform = `translateX(${i}00%)`));
+
+  //slide function
+
+  function slideMove() {
+    slides.forEach((s, i) => {
+      s.style.transform = `translateX(${i - currentSlide}00%)`;
+    });
+  }
+
+  //previous and next slide functions
+  function previousSlide() {
+    if (currentSlide === 0) {
+      currentSlide = slides.length - 1;
+    } else {
+      currentSlide--;
+    }
+    slideMove();
+    activeDot(currentSlide);
+  }
+
+  function nextSlide() {
+    if (currentSlide === slides.length - 1) {
+      currentSlide = 0;
+    } else {
+      currentSlide++;
+    }
+    slideMove();
+    activeDot(currentSlide);
+  }
+
+  //Creates the dots for the slider
+  function createDots() {
+    slides.forEach((_, i) => {
+      dotContainer.insertAdjacentHTML(
+        'beforeend',
+        `<button class="dots__dot" data-slide="${i}"></button`
+      );
+    });
+  }
+
+  //Changes which dot is "active"
+  function activeDot(slide) {
+    document
+      .querySelectorAll('.dots__dot')
+      .forEach(dot => dot.classList.remove('dots__dot--active'));
+    document
+      .querySelector(`.dots__dot[data-slide="${slide}"]`)
+      .classList.add('dots__dot--active');
+  }
+
+  // Event handlers
+
+  //next slide event handler
+  buttonRight.addEventListener('click', nextSlide);
+
+  //previous slide event handler
+  buttonLeft.addEventListener('click', previousSlide);
+
+  //left/right arrow event handlers
+  document.addEventListener('keydown', function (e) {
+    //using short circuiting to only execute the function if the correct key is pressed
+    e.key === 'ArrowLeft' && previousSlide();
+    e.key === 'ArrowRight' && nextSlide();
+  });
+
+  dotContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('dots__dot')) {
+      const { slide } = e.target.dataset;
+      currentSlide = slide;
+      slideMove();
+      activeDot(slide);
+    }
+  });
+}
+slider();
 
 //////////////////////////////////////////
 //////////////////////////////////////////
