@@ -162,7 +162,6 @@ ford.brake();
 ford.brake();
 console.log(ford.speedUS);
 
-*/
 
 function Person(firstName, birthYear) {
   this.firstName = firstName;
@@ -173,11 +172,20 @@ function Person(firstName, birthYear) {
   };
 }
 
-const Student = function (firstName, birthYear, course) {
-  this.firstName = firstName;
-  this.birthYear = birthYear;
+// // BAD METHOD
+// const Student = function (firstName, birthYear, course) {
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+//   this.course = course;
+// };
+
+// Good method
+function Student(firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear);
   this.course = course;
-};
+}
+
+Student.prototype = Object.create(Person.prototype);
 
 const melinda = new Student('Melinda', 2000, 'Psychology');
 
@@ -186,3 +194,88 @@ Student.prototype.introduce = function () {
 };
 
 melinda.introduce();
+
+Student.prototype.constructor = Student;
+console.log(Student.prototype.constructor);
+
+// all true - represents the prototype chain
+console.log(melinda instanceof Student);
+console.log(melinda instanceof Person);
+console.log(melinda instanceof Object);
+
+//
+
+//
+
+//
+function Car(make, speed) {
+  this.make = make;
+  this.speed = speed;
+}
+
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`The ${this.make} is now driving ${this.speed}km/h`);
+};
+
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`The ${this.make} is now driving ${this.speed}km/h`);
+};
+
+function EV(make, speed, charge) {
+  Car.call(this, make, speed);
+  this.charge = charge;
+}
+
+EV.prototype = Object.create(Car.prototype);
+EV.prototype.constructor = EV;
+
+EV.prototype.chargeBattery = function (chargeTo) {
+  if (chargeTo > this.charge) {
+    this.charge = chargeTo;
+    console.log(`Battery now at ${this.charge}%`);
+  }
+};
+
+EV.prototype.accelerate = function () {
+  this.speed += 20;
+  this.charge -= 1;
+  console.log(
+    `${this.make} going at ${this.speed} km/h, with a charge of ${this.charge}%`
+  );
+};
+
+const tesla = new EV('Tesla', 120, 23);
+
+tesla.brake();
+tesla.accelerate();
+tesla.accelerate();
+tesla.chargeBattery(15);
+tesla.chargeBattery(80);
+*/
+class Person {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  calcAge() {
+    console.log(
+      `${this.fullName} is ${
+        new Date().getFullYear() - this.birthYear
+      } years old`
+    );
+  }
+}
+
+class Student extends Person {
+  constructor(fullName, birthYear, course) {
+    super(fullName, birthYear);
+    this.course = course;
+  }
+}
+
+const martha = new Student('Martha Jones', 1987, 'Science');
+
+martha.calcAge();
