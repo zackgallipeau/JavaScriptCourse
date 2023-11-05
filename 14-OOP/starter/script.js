@@ -207,7 +207,7 @@ console.log(melinda instanceof Object);
 
 //
 
-//
+//inheritance using constructor functions
 function Car(make, speed) {
   this.make = make;
   this.speed = speed;
@@ -254,6 +254,9 @@ tesla.accelerate();
 tesla.chargeBattery(15);
 tesla.chargeBattery(80);
 */
+
+/*
+//inheritance using classes
 class Person {
   constructor(fullName, birthYear) {
     this.fullName = fullName;
@@ -279,3 +282,148 @@ class Student extends Person {
 const martha = new Student('Martha Jones', 1987, 'Science');
 
 martha.calcAge();
+*/
+const PersonProto = {
+  calcAge() {
+    console.log(new Date().getFullYear() - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+const StudentProto = Object.create(PersonProto);
+
+const jay = Object.create(StudentProto);
+
+StudentProto.init = function (firstName, birthYear, grade) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.grade = grade;
+};
+
+const billiam = Object.create(StudentProto);
+billiam.init('Billiam', 1998, '9th');
+
+console.log(billiam.firstName);
+console.log(billiam.calcAge());
+
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this._pin = pin;
+    this._movements = [];
+    this.locale = navigator.language;
+  }
+
+  deposit(num) {
+    this._movements.push(num);
+    return this;
+  }
+
+  withdraw(num) {
+    this.deposit(0 - num);
+    return this;
+  }
+
+  _approveLoan(val) {
+    return val < this._movements.reduce((acc, num) => (acc += num)) * 0.1;
+  }
+
+  requestLoan(num) {
+    if (this._approveLoan === true) {
+      this._movements.push(num);
+    } else {
+      console.log('Insufficient funds broke boy');
+    }
+    return this;
+  }
+}
+
+const acc1 = new Account('Jonas', 'EUR', 1111);
+
+console.log(acc1);
+console.log(acc1._movements);
+
+acc1.deposit(250);
+acc1.withdraw(140);
+
+acc1.requestLoan(300);
+
+acc1.deposit(200);
+acc1.requestLoan(5010000000);
+console.log(acc1._movements);
+
+class PrivateTest {
+  locale = navigator.language;
+  #movements = [];
+}
+
+const Hello = new PrivateTest();
+console.log(Hello);
+
+console.log();
+
+// console.log(Hello.movements);
+
+acc1.deposit(300).deposit(500);
+acc1.requestLoan(100);
+
+console.log(acc1._movements);
+
+console.log(100 < acc1._movements.reduce((acc, num) => (acc += num)) * 0.1);
+acc1.requestLoan(100);
+
+acc1.requestLoan(10);
+console.log(acc1._movements);
+
+class Car {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`The ${this.make} is now going ${this.speed} km/h`);
+    return this;
+  }
+
+  brake() {
+    this.speed -= 5;
+    console.log(`The ${this.make} is now going ${this.speed} km/h`);
+    return this;
+  }
+}
+
+class EV extends Car {
+  #charge;
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+    return this;
+  }
+
+  chargeBattery(num) {
+    if (num > this.charge) this.charge = num;
+  }
+}
+
+const rivian = new EV('Rivian', 120, 23);
+
+console.log(rivian.charge);
+
+rivian.chargeBattery(100);
+rivian.chargeBattery(5);
+console.log(rivian.charge);
+
+rivian.accelerate().accelerate();
+rivian.brake().brake().brake().brake().brake();
+
+rivian.accelerate().accelerate().brake().brake().brake().brake().brake();
+
+rivian.brake().brake().brake();
+rivian.brake();
