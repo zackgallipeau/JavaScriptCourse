@@ -6,7 +6,6 @@ const countriesContainer = document.querySelector('.countries');
 ///////////////////////////////////////
 //https://countries-api-836d.onrender.com/countries/
 
-/*  //Old way
 function renderCountry(data, className = '') {
   const html = `<article class="country ${className}">
     <img class="country__img" src="${data.flag}" />
@@ -23,7 +22,7 @@ function renderCountry(data, className = '') {
   countriesContainer.insertAdjacentHTML('beforeend', html);
   countriesContainer.style.opacity = 1;
 }
-
+/*  //Old way
 function getCountryAndNeighbor(input) {
   //AJAX call for country 1
   const request = new XMLHttpRequest();
@@ -62,11 +61,9 @@ getCountryAndNeighbor('usa');
 //console.log(request);
 
 function getCountryData(country) {
-  fetch(`https://restcountries.eu/rest/v2/name/${country}`).then(function (
-    response
-  ) {
-    console.log(response);
-  });
+  fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
+    .then(response => response.json())
+    .then(data => renderCountry(data[0]));
 }
 
 getCountryData('portugal');
