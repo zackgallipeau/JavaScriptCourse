@@ -58,5 +58,15 @@ function getCountryAndNeighbor(input) {
 getCountryAndNeighbor('usa');
 */
 
-const request = fetch('https://restcountries.com/v2/name/usa');
-console.log(request);
+// const request = fetch('https://restcountries.eu/rest/v2/name/usa');
+//console.log(request);
+
+function getCountryData(country) {
+  fetch(`https://restcountries.eu/rest/v2/name/${country}`).then(function (
+    response
+  ) {
+    console.log(response);
+  });
+}
+
+getCountryData('portugal');
