@@ -63,19 +63,69 @@ getCountryAndNeighbor('usa');
 // const request = fetch('https://restcountries.eu/rest/v2/name/usa');
 //console.log(request);
 
-function getCountryData(country) {
-  fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
-    .then(response => response.json())
+function getJSON(url, errorMsg = 'Something went wrong:') {
+  return fetch(url).then(response => {
+    console.log(response);
+    if (response.status === 404) {
+      throw new Error(`${errorMsg} Error ${response.status}`);
+    }
+    return response.json();
+  });
+}
+
+// function getCountryData(country) {
+//   fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
+//     .then(response => {
+//       console.log(response);
+//       if (response.status === 404) {
+//         throw new Error(`Country not found: Error ${response.status}`);
+//       }
+//       return response.json();
+//     })
+//     .then(data => {
+//       renderCountry(data[0]);
+//       const neighbour = data[0].borders[0];
+//       if (!neighbour) return;
+
+//       return fetch(
+//         `https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`
+//       );
+//     })
+//     .then(response => {
+//       console.log(response);
+//       if (response.status === 404) {
+//         throw new Error(`Country not found: Error ${response.status}`);
+//       }
+//       return response.json();
+//     })
+//     .then(data => renderCountry(data, 'neighbour'))
+//     .catch(err => {
+//       console.error(`${err}`);
+//       renderError(`Something went wrong. ${err.message}. Please try again`);
+//     })
+//     .finally(() => {
+//       countriesContainer.style.opacity = 1;
+//     });
+// }
+// getCountryData('portugal');
+
+function getCountryAndNeighbor(country) {
+  getJSON(
+    `https://countries-api-836d.onrender.com/countries/name/${country}`,
+    'Country not found:'
+  )
     .then(data => {
       renderCountry(data[0]);
       const neighbour = data[0].borders[0];
-      if (!neighbour) return;
+      if (!neighbour) {
+        throw new Error('No neighbour found!');
+      }
 
-      return fetch(
-        `https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`
+      return getJSON(
+        `https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`,
+        'Country not found:'
       );
     })
-    .then(response => response.json())
     .then(data => renderCountry(data, 'neighbour'))
     .catch(err => {
       console.error(`${err}`);
@@ -85,8 +135,71 @@ function getCountryData(country) {
       countriesContainer.style.opacity = 1;
     });
 }
-// getCountryData('portugal');
+
+function getCountryData(country) {
+  fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
+    .then(response => {
+      // console.log(response);
+      if (response.status === 404) {
+        throw new Error(`${errorMsg} Error ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      renderCountry(data[0]);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
+}
 
 btn.addEventListener('click', function () {
-  getCountryData('portugal');
+  getCountryData('usa');
 });
+
+//Coding challenge
+////////////////////////////////////////////////////
+
+function whereAmI(lat, lon, key = '5f846c8a8fe1470aa05142c657118e27') {
+  let country = '';
+  fetch(
+    `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${key}`
+  )
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(
+          `Sorry, we encountered a problem: Error ${response.error}`
+        );
+      }
+      return response.json();
+    })
+    .then(data => {
+      country = data.features[0].properties.country;
+      console.log(
+        `You are in ${data.features[0].properties.city}, ${data.features[0].properties.country}`
+      );
+      getCountryData(country);
+    })
+    .catch(err => console.log(err));
+}
+// Test data 1
+// whereAmI(52.508, 13.381);
+
+// Test data 2
+// whereAmI(19.037, 72.873);
+
+// Test data 3
+whereAmI(-33.933, 18.474);
+
+//5f846c8a8fe1470aa05142c657118e27
+////////////////////////////////////////////////////
+
+const whereAmIJonas = function (lat, lng) {
+  fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(`You are in ${data.city}, ${data.country}`);
+    });
+};
+
+// whereAmIJonas(52.508, 13.381);
