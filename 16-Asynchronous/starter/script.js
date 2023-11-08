@@ -154,7 +154,7 @@ function getCountryData(country) {
 }
 
 btn.addEventListener('click', function () {
-  getCountryData('usa');
+  getCountryData('belgium');
 });
 
 //Coding challenge
@@ -203,3 +203,48 @@ const whereAmIJonas = function (lat, lng) {
 };
 
 // whereAmIJonas(52.508, 13.381);
+/*
+console.log('Test start');
+
+setTimeout(() => console.log('0 sec timer'), 0);
+
+Promise.resolve('Resolved promise 1').then(res => console.log(res));
+
+Promise.resolve('Resolved promise 2').then(res => {
+  for (let i = 0; i < 10000000000; i++) {}
+  console.log(res);
+});
+
+console.log('Test end');
+*/
+
+const lotteryPromise = new Promise(function (resolve, reject) {
+  console.log('Lottery draw: The lottery has begun');
+  setTimeout(function () {
+    if (Math.random() >= 0.5) {
+      resolve('you WIN 💰');
+    } else {
+      reject(new Error('you are a LOSER ❌🤣'));
+    }
+  }, 2000);
+});
+
+lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
+
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+wait(2)
+  .then(() => {
+    console.log('I waited for 2 seconds');
+    return wait(1);
+  })
+  .then(() => console.log('I waited for 1 more second'));
+
+navigator.geolocation.getCurrentPosition(
+  position => console.log(position),
+  err => console.log(err)
+);
