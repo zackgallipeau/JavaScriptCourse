@@ -160,27 +160,32 @@ btn.addEventListener('click', function () {
 //Coding challenge
 ////////////////////////////////////////////////////
 
-function whereAmI(lat, lon, key = '5f846c8a8fe1470aa05142c657118e27') {
-  let country = '';
-  fetch(
-    `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${key}`
-  )
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(
-          `Sorry, we encountered a problem: Error ${response.error}`
+//lat, lon, key = '5f846c8a8fe1470aa05142c657118e27'
+function whereAmI() {
+  getPosition().then(pos => {
+    const { latitude: lat, longitude: lng } = pos.coords;
+
+    let country = '';
+    fetch(
+      `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=5f846c8a8fe1470aa05142c657118e27`
+    )
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(
+            `Sorry, we encountered a problem: Error ${response.error}`
+          );
+        }
+        return response.json();
+      })
+      .then(data => {
+        country = data.features[0].properties.country;
+        console.log(
+          `You are in ${data.features[0].properties.city}, ${data.features[0].properties.country}`
         );
-      }
-      return response.json();
-    })
-    .then(data => {
-      country = data.features[0].properties.country;
-      console.log(
-        `You are in ${data.features[0].properties.city}, ${data.features[0].properties.country}`
-      );
-      getCountryData(country);
-    })
-    .catch(err => console.log(err));
+        getCountryData(country);
+      })
+      .catch(err => console.log(err));
+  });
 }
 // Test data 1
 // whereAmI(52.508, 13.381);
@@ -189,7 +194,7 @@ function whereAmI(lat, lon, key = '5f846c8a8fe1470aa05142c657118e27') {
 // whereAmI(19.037, 72.873);
 
 // Test data 3
-whereAmI(-33.933, 18.474);
+// whereAmI(-33.933, 18.474);
 
 //5f846c8a8fe1470aa05142c657118e27
 ////////////////////////////////////////////////////
@@ -217,7 +222,7 @@ Promise.resolve('Resolved promise 2').then(res => {
 
 console.log('Test end');
 */
-
+/* /////////////////////////////delete this row if needed
 const lotteryPromise = new Promise(function (resolve, reject) {
   console.log('Lottery draw: The lottery has begun');
   setTimeout(function () {
@@ -244,7 +249,93 @@ wait(2)
   })
   .then(() => console.log('I waited for 1 more second'));
 
-navigator.geolocation.getCurrentPosition(
-  position => console.log(position),
-  err => console.log(err)
-);
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+// getPosition().then(pos => console.log(pos));
+
+whereAmI();
+
+*/ ///////////////////////////////////////////////////
+//CHALLENGE
+
+let challengeImage;
+function createImage(imgPath) {
+  return new Promise(function (resolve, reject) {
+    challengeImage = document.createElement('img');
+    challengeImage.src = imgPath;
+
+    challengeImage.addEventListener('load', function () {
+      document.querySelector('.images').append(challengeImage);
+      resolve(challengeImage);
+    });
+
+    challengeImage.addEventListener('error', function () {
+      reject(new Error('Image not found'));
+    });
+  })
+    .then(() => wait(2))
+    .then(() => (challengeImage.style.display = 'none'));
+}
+
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+// createImage('img/img-1.jpg')
+//   .then(() => createImage('img/img-2.jpg'))
+//   .then(() => createImage('img/img-3.jpg'));
+
+/*
+This code has been refactored ///////
+
+function createImage(imgPath) {
+  return new Promise(function (resolve, reject) {
+    challengeImage = document.createElement('img');
+    challengeImage.src = imgPath;
+    resolve(challengeImage);
+    reject('Image not found');
+  });
+}
+
+createImage('img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg')
+  .then(image => document.querySelector('.images').append(image))
+  .then(() =>
+    challengeImage.addEventListener('load', function () {
+      return challengeImage;
+    })
+  )
+  .then(() => wait(2))
+  .then(() => (challengeImage.style.display = 'none'))
+  .then(() => createImage('img/img-2.jpg'))
+  .then(image => document.querySelector('.images').append(image))
+  .then(() =>
+    challengeImage.addEventListener('load', function () {
+      return challengeImage;
+    })
+  )
+  .then(() => wait(2))
+  .then(() => (challengeImage.style.display = 'none'))
+  .then(() => createImage('img/img-3.jpg'))
+  .then(image => document.querySelector('.images').append(image))
+  .then(() =>
+    challengeImage.addEventListener('load', function () {
+      return challengeImage;
+    })
+  )
+  .then(() => wait(2))
+  .then(() => (challengeImage.style.display = 'none'))
+  .catch(err => console.log(err));
+*/
+///////
+
+async function whereAmI(country) {
+  await fetch(
+    `https://countries-api-836d.onrender.com/countries/name/${country}`
+  );
+}
