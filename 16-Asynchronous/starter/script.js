@@ -19,7 +19,7 @@ function renderCountry(data, className = '') {
       <p class="country__row"><span>👫</span>${(
         +data.population / 1_000_000
       ).toFixed(1)} Million</p>
-      <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+      <p class="country__row"><span>🗣️</span>${data.languages[0].nativeName}</p>
       <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
     </div>
     </article>`;
@@ -161,7 +161,7 @@ btn.addEventListener('click', function () {
 ////////////////////////////////////////////////////
 
 //lat, lon, key = '5f846c8a8fe1470aa05142c657118e27'
-function whereAmI() {
+function whereAmI2() {
   getPosition().then(pos => {
     const { latitude: lat, longitude: lng } = pos.coords;
 
@@ -333,9 +333,24 @@ createImage('img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg')
   .catch(err => console.log(err));
 */
 ///////
-
 async function whereAmI(country) {
-  await fetch(
-    `https://countries-api-836d.onrender.com/countries/name/${country}`
-  );
+  try {
+    const res = await fetch(
+      `https://countries-api-836d.onrender.com/countries/name/${country}`
+    );
+    if (!res.ok) {
+      throw new Error('you are garbage ked');
+    }
+    const data = await res.json();
+
+    getCountryData(data[0].name);
+  } catch (err) {
+    console.error(`${err.message} you loser`);
+  }
 }
+
+whereAmI('brazil');
+
+console.log('First');
+
+whereAmI('usa');
