@@ -65,7 +65,7 @@ getCountryAndNeighbor('usa');
 
 function getJSON(url, errorMsg = 'Something went wrong:') {
   return fetch(url).then(response => {
-    console.log(response);
+    // console.log(response);
     if (response.status === 404) {
       throw new Error(`${errorMsg} Error ${response.status}`);
     }
@@ -262,30 +262,30 @@ whereAmI();
 */ ///////////////////////////////////////////////////
 //CHALLENGE
 
-let challengeImage;
-function createImage(imgPath) {
-  return new Promise(function (resolve, reject) {
-    challengeImage = document.createElement('img');
-    challengeImage.src = imgPath;
+// let challengeImage;
+// function createImage(imgPath) {
+//   return new Promise(function (resolve, reject) {
+//     challengeImage = document.createElement('img');
+//     challengeImage.src = imgPath;
 
-    challengeImage.addEventListener('load', function () {
-      document.querySelector('.images').append(challengeImage);
-      resolve(challengeImage);
-    });
+//     challengeImage.addEventListener('load', function () {
+//       document.querySelector('.images').append(challengeImage);
+//       resolve(challengeImage);
+//     });
 
-    challengeImage.addEventListener('error', function () {
-      reject(new Error('Image not found'));
-    });
-  })
-    .then(() => wait(2))
-    .then(() => (challengeImage.style.display = 'none'));
-}
+//     challengeImage.addEventListener('error', function () {
+//       reject(new Error('Image not found'));
+//     });
+//   })
+//     .then(() => wait(2))
+//     .then(() => (challengeImage.style.display = 'none'));
+// }
 
-const wait = function (seconds) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, seconds * 1000);
-  });
-};
+// const wait = function (seconds) {
+//   return new Promise(function (resolve) {
+//     setTimeout(resolve, seconds * 1000);
+//   });
+// };
 
 // createImage('img/img-1.jpg')
 //   .then(() => createImage('img/img-2.jpg'))
@@ -349,8 +349,111 @@ async function whereAmI(country) {
   }
 }
 
-whereAmI('brazil');
+// whereAmI('brazil');
 
-console.log('First');
+// console.log('First');
 
-whereAmI('usa');
+// whereAmI('usa');
+
+// (async function () {
+//   try {
+//     const city = await whereAmI();
+//     console.log(city);
+//   } catch (err) {
+//     console.log(`2: ${err.message}`);
+//   }
+//   console.log(`3: Finished getting location`);
+// })();
+/*
+async function get3Countries(c1, c2, c3) {
+  try {
+    // const [data1] = await getJSON(
+    //   `https://countries-api-836d.onrender.com/countries/name/${c1}`
+    // );
+    // const [data2] = await getJSON(
+    //   `https://countries-api-836d.onrender.com/countries/name/${c2}`
+    // );
+    // const [data3] = await getJSON(
+    //   `https://countries-api-836d.onrender.com/countries/name/${c3}`
+    // );
+
+    const data = await Promise.all([
+      getJSON(`https://countries-api-836d.onrender.com/countries/name/${c1}`),
+      getJSON(`https://countries-api-836d.onrender.com/countries/name/${c2}`),
+      getJSON(`https://countries-api-836d.onrender.com/countries/name/${c3}`),
+    ]);
+    console.log(data.map(d => d[0].capital));
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+get3Countries('usa', 'russia', 'laos');
+
+const timeout = function (s) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error('request took too long!'));
+    }, s);
+  });
+};
+
+Promise.race([
+  getJSON(`https://countries-api-836d.onrender.com/countries/name/tanzania`),
+  timeout(5000),
+])
+  .then(res => console.log(res[0]))
+  .catch(err => console.error(err));
+
+Promise.allSettled([
+  Promise.resolve('success!'),
+  Promise.reject('You are a LOSER'),
+  Promise.resolve("You're on a roll!"),
+])
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
+
+Promise.any([
+  Promise.resolve('success!'),
+  Promise.reject('You are a LOSER'),
+  Promise.resolve("You're on a roll!"),
+])
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
+*/
+
+let challengeImage;
+function createImage(imgPath) {
+  return new Promise(function (resolve, reject) {
+    challengeImage = document.createElement('img');
+    challengeImage.src = imgPath;
+
+    challengeImage.addEventListener('load', function () {
+      document.querySelector('.images').append(challengeImage);
+      resolve(challengeImage);
+    });
+
+    challengeImage.addEventListener('error', function () {
+      reject(new Error('Image not found'));
+    });
+  })
+    .then(() => wait(2))
+    .then(() => (challengeImage.style.display = 'none'));
+}
+
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+async function loadNPause(imgPath) {
+  try {
+    challengeImage = document.createElement('img');
+    challengeImage.src = imgPath;
+  }
+}
+
+// createImage('img/img-1.jpg')
+//   .then(() => createImage('img/img-2.jpg'))
+//   .then(() => createImage('img/img-3.jpg'));
