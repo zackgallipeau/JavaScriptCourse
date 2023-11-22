@@ -100,3 +100,26 @@ const { addTocart } = require('./shoppingCart.js');
 */
 
 ///////////////////////////////////////
+
+import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+
+const state = {
+  cart: [
+    { produduct: 'bread', quantity: 5 },
+    { product: 'bread', quantity: 5 },
+  ],
+  user: { loggedIn: true },
+};
+
+const stateclone = Object.assign({}, state);
+console.log(stateclone);
+
+const stateDeepClone = cloneDeep(state);
+console.log(stateDeepClone);
+state.user.loggedIn = false;
+console.log(stateDeepClone.user.loggedIn);
+console.log(state.user.loggedIn);
+
+import 'core-js/stable';
+
+import 'regenerator-runtime/runtime'; //for polifilling async functions
